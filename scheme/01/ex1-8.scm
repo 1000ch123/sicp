@@ -6,8 +6,8 @@
 ; new good-enough(cf 1-7)
 (define (good-enough? guess x)
   (if (< (cube guess) x)
-      (> (abs (/ (square guess) x)) (- 1 0.1))
-      (< (abs (/ (square guess) x)) (+ 1 0.1))
+      (> (abs (/ (cube guess) x)) (- 1 0.1))
+      (< (abs (/ (cube guess) x)) (+ 1 0.1))
   ))
 
 (define (cube x)
@@ -22,6 +22,10 @@
 (define (cbrt x)
   (cbrt-iter 1.0 x))
 
-(print (cbrt 0.001))
+
+(use slib)
+(require 'trace)
+(trace cbrt-iter)
+(print (cbrt 0.00001))
 
 
