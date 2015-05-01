@@ -15,7 +15,7 @@ absAdd3 x y
     | otherwise = x + y
 
 -- swapぽいことすればいけるのでは
-absAdd4 :: Int -> Int -> Int
+-- absAdd4 :: Int -> Int -> Int
 
 main = do
     print $ aPlusAbsb 10 (-20)
