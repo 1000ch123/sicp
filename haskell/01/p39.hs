@@ -9,4 +9,5 @@ countExchangePatterns n (x:xs)
 
 main = do
     print $ countExchangePatterns 10 [5, 1]
+    print $ countExchangePatterns 11 [10, 5, 1]
     print $ countExchangePatterns 100 [50, 25, 10, 5, 1]
