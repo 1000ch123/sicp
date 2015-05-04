@@ -36,3 +36,4 @@ main = do
     calcFuncTimes $ take 3 $ searchForPrimes 100000
     calcFuncTimes $ take 3 $ searchForPrimes 1000000
     calcFuncTimes $ take 3 $ searchForPrimes 10000000
+    calcFuncTimes $ take 3 $ searchForPrimes 100000000
