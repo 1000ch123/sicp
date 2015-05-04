@@ -20,6 +20,18 @@ twice x = x * 2
 halve :: (Integral a) => a -> a
 halve x = div x 2
 
+-- ex1-18
+-- fastmulを反復プロセスで
+fastMulRepetitive :: (Integral) a => a -> a -> a
+fastMulRepetitive a b = fastMulStep a b 0
+
+fastMulStep :: (Integral) a => a -> a -> a -> a
+fastMulStep base count sum
+    | count == 0    = sum
+    | even count    = fastMulStep (twice base) (halve count) sum
+    | otherwise     = fastMulStep base (count - 1) (sum + base)
+
 main = do
     print $ mul 3 1000
     print $ fastMul 3 1000
+    print $ fastMulRepetitive 3 1000
