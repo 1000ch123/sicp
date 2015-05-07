@@ -36,7 +36,6 @@ w b k
 y :: (Num a, Ord a, Floating a) => (a -> a) -> a -> a -> a -> a
 y fn a h k = fn (a+k*h)
 
-
 cube :: (Num a) => a -> a
 cube x = x ^ 3
 

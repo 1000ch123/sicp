@@ -39,6 +39,7 @@ calcIOTimes action = do
 -- 判定対象:1000付近,1000000付近で実行時間がどう変わるだろうか？
 main = do
     calcIOTimes (testAction 1009)
+    calcIOTimes (testAction 1009)
     calcIOTimes (testAction 10007)
     calcIOTimes (testAction 100003)
     calcIOTimes (testAction 1000003)
