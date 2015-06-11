@@ -1,6 +1,10 @@
 -- p71.不動点
 --
 
+module FixedPoint(
+    fixedPoint
+)where
+
 tolerance :: Float
 tolerance = 0.000001
 
