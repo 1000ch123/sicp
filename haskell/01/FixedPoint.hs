@@ -2,7 +2,7 @@
 --
 
 module FixedPoint(
-    fixedPoint
+    fixedPoint,
 )where
 
 tolerance :: Float
