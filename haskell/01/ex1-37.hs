@@ -2,6 +2,9 @@
 -- 連分数
 import ContFrac
 
+fn = const 1
+fd = const 1
+
 main = do
-    print $ contFrac 1 1 10
+    print $ contFrac fn fd 10
     print $ contFracReptitive 10
