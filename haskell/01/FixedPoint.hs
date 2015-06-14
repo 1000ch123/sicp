@@ -5,13 +5,13 @@ module FixedPoint(
     fixedPoint,
 )where
 
-tolerance :: Float
+tolerance :: Double
 tolerance = 0.000001
 
-closeEnough :: Float -> Float -> Bool
+closeEnough :: Double -> Double -> Bool
 closeEnough x y = abs(x - y) < tolerance
 
-fixedPoint :: (Float -> Float) -> Float -> Float
+fixedPoint :: (Double -> Double) -> Double -> Double
 fixedPoint f guess
     | closeEnough guess next = next
     | otherwise              = fixedPoint f next

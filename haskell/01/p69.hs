@@ -1,7 +1,7 @@
 -- p69
 -- 半区間法
 
-search :: (Float -> Float ) -> Float -> Float -> Float
+search :: (Double -> Double ) -> Double -> Double -> Double
 search f left right
     | closeEnough left right    = mid
     | f mid > 0                 = search f left mid
@@ -9,10 +9,10 @@ search f left right
     | otherwise                 = mid
     where mid = (left + right) / 2.0
 
-closeEnough :: Float -> Float -> Bool
+closeEnough :: Double -> Double -> Bool
 closeEnough x y = abs(x - y) < 0.001
 
-halfIntervalMethod :: (Float -> Float) -> Float -> Float -> Float
+halfIntervalMethod :: (Double -> Double) -> Double -> Double -> Double
 halfIntervalMethod f a b
     | f a < 0 && f b > 0    = search f a b
     | f a > 0 && f b < 0    = search f b a

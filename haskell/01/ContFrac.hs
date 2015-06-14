@@ -4,15 +4,15 @@ module ContFrac(
     contFracReptitive,
 )where
 
-{-contFrac :: Float -> Float -> Int -> Float-}
+{-contFrac :: Double -> Double -> Int -> Double-}
 {-contFrac _ _ 0 = 1-}
 {-contFrac n d k = n / (d + contFrac n d (k-1))-}
 
-contFrac :: (Int -> Float) -> (Int -> Float) -> Int -> Float
+contFrac :: (Int -> Double) -> (Int -> Double) -> Int -> Double
 contFrac fn fd k = contFrac' fv fn fd k
     where fv = argReverse k
 
-contFrac' :: (Int -> Int) -> (Int -> Float) -> (Int -> Float) -> Int -> Float
+contFrac' :: (Int -> Int) -> (Int -> Double) -> (Int -> Double) -> Int -> Double
 contFrac' _ _ _ 0 = 1
 contFrac' fv fn fd k = fn k' / (fd k' + contFrac' fv fn fd (k-1))
     where k' = fv k
@@ -21,10 +21,10 @@ contFrac' fv fn fd k = fn k' / (fd k' + contFrac' fv fn fd (k-1))
 argReverse :: Int -> Int -> Int
 argReverse n x = n - x + 1
 
-contFracReptitive :: Int -> Float
+contFracReptitive :: Int -> Double
 contFracReptitive = contFracReptitiveStep 1 1 1
 
-contFracReptitiveStep :: Float -> Float -> Float -> Int -> Float
+contFracReptitiveStep :: Double -> Double -> Double -> Int -> Double
 contFracReptitiveStep v n d k
     | k == 0    = v
     | otherwise = contFracReptitiveStep (n / (d + v)) n d (k-1)
