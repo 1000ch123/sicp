@@ -1,3 +1,4 @@
+import MyTypes
 import Newton
 
 cubic :: Double -> Double -> Double -> Fn
