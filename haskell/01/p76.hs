@@ -1,30 +1,60 @@
+import FixedPoint
+
+type Fn = (Double -> Double)
+type Transform = Fn -> Fn
+
+-- p75
+-- 半区間法でのいろいろ
+averageDamp :: Transform
+averageDamp fn x = (fn x + x) / 2
+
+halfMethodSqrt :: Fn
+halfMethodSqrt x = fixedPoint (averageDamp (\y -> x / y)) 1.0
+
 -- p76
 -- newton method
 -- Floatだと精度が足りない
 
-import FixedPoint
-
-dx :: (Num a, Fractional a) => a
+-- 精度.const
+dx :: Double
 dx = 0.00001
 
-deriv :: (Num a, Fractional a) => (a -> a) -> a -> a
+-- びぶん
+deriv :: Transform
 deriv fn x = (fn (x + dx) - fn x) / dx
 
-newtonTrasnform :: (Double -> Double) -> Double -> Double
-newtonTrasnform fn x = x - fn x / fn' x
-    where fn' = deriv fn
 
 -- f(x)=0を解く
 -- f(x)=0の解は，newtonTransformされた関数fnNewtonに対し不動点となる
 -- (ここ数学.僕が知ってるのと違う)
 -- これはfnを変形させた x=g(x)の不動点計算よりも早く収束するらしいよ
-newton :: (Double -> Double) -> Double -> Double
-newton fn = fixedPoint fnNewton
-    where fnNewton = newtonTrasnform fn
+newtonTransform :: Transform
+newtonTransform fn x = x - fn x / fn' x
+    where fn' = deriv fn
 
-newtonSqrt :: Double -> Double
-newtonSqrt a = newton (\x -> x^2 - a) 1.0
+newton :: Transform
+newton fn = fixedPoint fnNewton
+    where fnNewton = newtonTransform fn
+
+-- つかってみる
+newtonMethodSqrt :: Fn
+newtonMethodSqrt a = newton (\x -> x^2 - a) 1.0
+
+-- p77
+-- 平均法，newton法でのfixedPointを生成する
+-- ターゲット関数，不動点求める関数へのコンバート関数，初期値を与える
+fixedPointOfTransform :: Fn -> Transform -> Fn
+fixedPointOfTransform fn trans = fixedPoint fnTrans
+    where fnTrans = trans fn
+
+halfMethodSqrt2 :: Fn
+halfMethodSqrt2 a = fixedPointOfTransform (a/) averageDamp 1.0
+
+newtonMethodSqrt2 :: Fn
+newtonMethodSqrt2 a = fixedPointOfTransform (\x -> x^2 - a) newtonTransform 1.0
 
 main = do
-    print $ deriv (^3) 5
-    print $ newtonSqrt 5.0
+    print $ halfMethodSqrt 5.0
+    print $ halfMethodSqrt2 5.0
+    print $ newtonMethodSqrt 5.0
+    print $ newtonMethodSqrt2 5.0
