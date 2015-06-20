@@ -5,7 +5,7 @@ type Fn = Int -> Int
 type Transform = Fn -> Fn
 
 repeated :: Int -> Transform
-repeated 1 fn = fn
+repeated 0 _  = id
 repeated n fn = fn . repeated (n-1) fn
 
 doubleSquare :: Fn
