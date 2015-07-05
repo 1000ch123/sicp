@@ -2,14 +2,31 @@ module Fraction(
     makeRat,
 )where
 
-
+-- Ex2.1:makeRatを負数に対応
 -- |makeRat
 -- >>> makeRat 1 2
 -- (1,2)
--- >>> makeRat 2 4
+-- >>> makeRat (-1) 2
+-- (-1,2)
+-- >>> makeRat 1 (-2)
+-- (-1,2)
+-- >>> makeRat (-1) (-2)
 -- (1,2)
 makeRat :: Int -> Int -> (Int, Int)
-makeRat a b = (div a g, div b g)
+makeRat a b
+    | a >= 0 && b > 0 = makeRat' a b
+    | a < 0  && b > 0 = makeRat' a b
+    | a >= 0 && b < 0 = makeRat' (negate a) (negate b)
+    | a < 0  && b < 0 = makeRat' (negate a) (negate b)
+    | otherwise       = makeRat' a b
+
+-- |makeRat'
+-- >>> makeRat' 1 2
+-- (1,2)
+-- >>> makeRat' 2 4
+-- (1,2)
+makeRat' :: Int -> Int -> (Int, Int)
+makeRat' a b = (div a g, div b g)
     where g = gcd a b
 -- |numer
 -- >>> let a = makeRat 2 3
