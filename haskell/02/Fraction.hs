@@ -20,6 +20,7 @@ makeRat a b
     | a < 0  && b < 0 = makeRat' (negate a) (negate b)
     | otherwise       = makeRat' a b
 
+-- makeratを約分可能に
 -- |makeRat'
 -- >>> makeRat' 1 2
 -- (1,2)
@@ -28,6 +29,8 @@ makeRat a b
 makeRat' :: Int -> Int -> (Int, Int)
 makeRat' a b = (div a g, div b g)
     where g = gcd a b
+
+-- 分母取得
 -- |numer
 -- >>> let a = makeRat 2 3
 -- >>> numer a
@@ -35,6 +38,7 @@ makeRat' a b = (div a g, div b g)
 numer :: (Int,Int) -> Int
 numer = fst
 
+-- 分子取得
 -- |denom
 -- >>> let a = makeRat 2 3
 -- >>> denom a
@@ -42,6 +46,7 @@ numer = fst
 denom :: (Int, Int) -> Int
 denom = snd
 
+-- 表示
 -- |printRat
 -- >>> let a = makeRat 2 3
 -- >>> printRat a
@@ -49,6 +54,7 @@ denom = snd
 printRat :: (Show a) => (a,a) -> IO()
 printRat (a,b) = print $ show a ++ "/" ++ show b
 
+-- 四則演算
 
 -- |addRat
 -- >>> let a = makeRat 2 3
