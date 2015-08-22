@@ -53,10 +53,29 @@ subInterval :: Interval -> Interval -> Interval
 subInterval = calcInterval (-)
 
 -- | mulInterval
--- >>> mulInterval (8,12) (12,18)
--- (96.0,216.0)
+-- >>> mulInterval ( 2 ,8) ( 4, 6)
+-- (8.0,48.0)
+-- >>> mulInterval (-2, 8) ( 4, 6)
+-- (-12.0,48.0)
+-- >>> mulInterval ( 2, 8) (-4, 6)
+-- (-32.0,48.0)
+-- >>> mulInterval (-2, 8) (-6,-4)
+-- (-48.0,12.0)
+-- >>> mulInterval (-8,-2) (-4, 6)
+-- (-48.0,32.0)
+-- >>> mulInterval (-8,-2) (-6,-4)
+-- (8.0,48.0)
+-- >>> mulInterval (-2, 8) (-4, 6)
+-- (-32.0,48.0)
 mulInterval :: Interval -> Interval -> Interval
-mulInterval = calcInterval (*)
+mulInterval (a,b) (c,d)
+    | and [a>0, b>0, c>0, d>0] = makeInterval (a*c) (b*d)
+    | and [a<0, b>0, c>0, d>0] = makeInterval (a*d) (b*d)
+    | and [a>0, b>0, c<0, d>0] = makeInterval (b*c) (b*d)
+    | and [a<0, b>0, c<0, d<0] = makeInterval (b*c) (a*c)
+    | and [a<0, b<0, c<0, d>0] = makeInterval (a*d) (a*c)
+    | and [a<0, b<0, c<0, d<0] = makeInterval (b*d) (a*c)
+    | otherwise                = calcInterval (*) (a,b) (c,d)
 
 -- | divInterval
 -- >>> divInterval (8,12) (2,4)
