@@ -29,7 +29,7 @@ upperBound :: Interval -> Float
 upperBound (a,b) = max a b
 
 width :: Interval -> Float
-width a b = (a + b) / 2
+width (a,b) = (a + b) / 2
 
 -- 四則演算
 calcInterval :: (Float -> Float -> Float) -> Interval -> Interval -> Interval
@@ -61,9 +61,12 @@ mulInterval = calcInterval (*)
 -- | divInterval
 -- >>> divInterval (8,12) (2,4)
 -- (2.0,6.0)
+-- >>> divInterval (8,12) (0,4)
+-- *** Exception: Division by zero
 divInterval :: Interval -> Interval -> Interval
-divInterval = calcInterval (/)
-
+divInterval _ (0, _) = error "Division by zero"
+divInterval _ (_, 0) = error "Division by zero"
+divInterval a b = calcInterval (/) a b
 
 -- 頑張って実装するversion
 {-addInterval i1 i2 = makeInterval (lowerBound i1 + lowerBound i2) (upperBound i1 + upperBound i2)-}
