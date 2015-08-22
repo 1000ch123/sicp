@@ -14,19 +14,19 @@ type Interval = (Float, Float)
 -- >>> makeInterval 8 12
 -- (8.0,12.0)
 makeInterval :: Float -> Float -> Interval
-makeInterval a b = (a,b)
+makeInterval a b = (min a b, max a b)
 
 -- | lowerBound
 -- >>> lowerBound $ makeInterval 8 12
 -- 8.0
 lowerBound :: Interval -> Float
-lowerBound (a,b) = min a b
+lowerBound = fst
 
 -- | upperBound
 -- >>> upperBound $ makeInterval 8 12
 -- 12.0
 upperBound :: Interval -> Float
-upperBound (a,b) = max a b
+upperBound = snd
 
 width :: Interval -> Float
 width (a,b) = (a + b) / 2
