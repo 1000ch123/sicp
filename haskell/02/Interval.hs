@@ -28,6 +28,9 @@ lowerBound (a,b) = min a b
 upperBound :: Interval -> Float
 upperBound (a,b) = max a b
 
+width :: Interval -> Float
+width a b = (a + b) / 2
+
 -- 四則演算
 calcInterval :: (Float -> Float -> Float) -> Interval -> Interval -> Interval
 calcInterval op i1 i2 =  makeInterval (minimum candidates) (maximum candidates)
