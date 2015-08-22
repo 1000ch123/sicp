@@ -3,6 +3,7 @@ module Interval(
     lowerBound,
     upperBound,
     addInterval,
+    subInterval,
     mulInterval,
     divInterval
 )where
@@ -34,6 +35,17 @@ upperBound (a,b) = max a b
 addInterval :: Interval -> Interval -> Interval
 addInterval i1 i2 = makeInterval (lowerBound i1 + lowerBound i2) (upperBound i1 + upperBound i2)
 
+
+-- | subInterval
+-- >>> subInterval (8,12) (12,18)
+-- (-10.0,0.0)
+subInterval :: Interval -> Interval -> Interval
+subInterval i1 i2 = makeInterval (minimum candidates) (maximum candidates)
+    where p1 = lowerBound i1 - lowerBound i2
+          p2 = lowerBound i1 - upperBound i2
+          p3 = upperBound i1 - lowerBound i2
+          p4 = upperBound i1 - upperBound i2
+          candidates = [p1,p2,p3,p4]
 
 -- | mulInterval
 -- >>> mulInterval (8,12) (12,18)
