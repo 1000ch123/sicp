@@ -5,7 +5,10 @@ module Interval(
     addInterval,
     subInterval,
     mulInterval,
-    divInterval
+    divInterval,
+    makeCenterPercent,
+    center,
+    percent
 )where
 
 type Interval = (Float, Float)
@@ -28,8 +31,29 @@ lowerBound = fst
 upperBound :: Interval -> Float
 upperBound = snd
 
+-- | width
+-- >>> width $ makeInterval 8 12
+-- 2.0
 width :: Interval -> Float
-width (a,b) = (a + b) / 2
+width (a,b) = (b - a) / 2
+
+-- | makeCenterPercent
+-- >>> makeCenterPercent 10 10
+-- (9.0,11.0)
+makeCenterPercent :: Float -> Float -> Interval
+makeCenterPercent c p = makeInterval (c * (1 - (p / 100))) (c * (1 + (p/100)))
+
+-- | center
+-- >>> center $ makeCenterPercent 10 10
+-- 10.0
+center :: Interval -> Float
+center (a,b) = (a + b) / 2
+
+-- | percent
+-- >>> percent $ makeCenterPercent 10 10
+-- 10.0
+percent :: Interval -> Float
+percent i = width i / center i * 100
 
 -- 四則演算
 calcInterval :: (Float -> Float -> Float) -> Interval -> Interval -> Interval
