@@ -16,3 +16,6 @@
           (map proc (cdr items)))))
 
 (print (map abs (list 1 -2 3 4 -5 6 -7)))
+
+
+(print (cons (cons 2 3) 3))
