@@ -38,6 +38,9 @@ myLast :: [a] -> a
 myLast [x]    = x
 myLast (x:xs) = myLast xs
 
-
+-- | myReverse
+-- >>> myReverse [1,2,3,4,5]
+-- [5,4,3,2,1]
 myReverse :: [a] -> [a]
-myReverse (x:xs) = xs
+myReverse [] = []
+myReverse (x:xs) = myAppend (myReverse xs) [x]
