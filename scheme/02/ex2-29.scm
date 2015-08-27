@@ -128,3 +128,8 @@
     (make-branch 2 mb)))
 
 (print (balanced? mb2))
+(msg "d: change constructor")
+; listをconsに変えても，aで定義したselectorを変えるだけで多分動く
+; cadrがcdrになるくらいじゃね
+; 大正解！
+; これぞ抽象化のメリット！
