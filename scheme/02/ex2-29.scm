@@ -83,6 +83,7 @@
       (branch-structure branch)
       (total-weight (branch-structure branch))))
 
+(print "--weight--")
 (print (left-branch m2))
 (print (weight (left-branch m2)))
 (print (weight (right-branch m2)))
@@ -91,9 +92,23 @@
 (define (torque branch)
   (* (weight branch) (branch-length branch)))
 
+(print "--torque--")
+(print (torque (left-branch m)))
+(print (torque (right-branch m)))
+
+
 (define (partial-balanced? mobile)
-  (= (torque (left-branch mobile)
-     (torque (right-branch mobile)))))
+  (= (torque (left-branch mobile))
+     (torque (right-branch mobile))))
+
+(print "--partial balance--")
+(define mb
+  (make-mobile
+    (make-branch 2 100)
+    (make-branch 1 200)))
+(print (partial-balanced? mb))
+(print (partial-balanced? m))
+
 
 (define (balanced? mobile)
   #t)
