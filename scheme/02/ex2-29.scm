@@ -111,6 +111,20 @@
 
 
 (define (balanced? mobile)
-  #t)
+  (let ((l (left-branch mobile)) (r (right-branch mobile)))
+       (and (partial-balanced? mobile)
+            (if (leaf? l)
+                 #t
+                 (balanced? (branch-structure l)))
+            (if (leaf? r)
+                 #t
+                 (balanced? (branch-structure r)))
+            )
+        ))
 
-;(print (balanced? mm))
+(define mb2
+  (make-mobile
+    (make-branch 2 mb)
+    (make-branch 2 mb)))
+
+(print (balanced? mb2))
