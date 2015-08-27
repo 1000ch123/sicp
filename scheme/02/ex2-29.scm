@@ -31,6 +31,7 @@
     (make-branch 5 100)
     (make-branch 2 200)))
 
+(print m)
 (print (left-branch m))
 (print (right-branch m))
 (print (branch-length (left-branch m)))
@@ -46,19 +47,55 @@
         (r (right-branch mobile)))
   (+ (if (leaf? l)
          (branch-structure l)
-         (total-weight l)
+         (total-weight (branch-structure l))
          )
      (if (leaf? r)
          (branch-structure r)
-         (total-weight r)
+         (total-weight (branch-structure r))
          )
      )))
 
-(define mm
-  (let ((mk make-mobile))
-       (mk (mk m m) (mk m (mk m m))))
+(define m2
+  (let ((mm make-mobile) (mb make-branch))
+       (mm (mb 10 m) (mb 20 m)))
   )
-(print mm )
-(print (total-weight mm ))
+
+(define m3
+  (let ((mm make-mobile) (mb make-branch))
+       (mm (mb 30 m2) (mb 20 m)))
+  )
 
 
+;(trace total-weight)
+(print m2)
+(print (left-branch m2))
+(print (branch-structure (left-branch m2)))
+(print (left-branch (branch-structure (left-branch m2))))
+(print (pair? (branch-structure (left-branch m2))))
+(print (not (pair? (branch-structure (left-branch m2)))))
+(print (total-weight m2))
+
+
+(msg "c: write balanced?")
+
+(define (weight branch)
+  (if (leaf? branch)
+      (branch-structure branch)
+      (total-weight (branch-structure branch))))
+
+(print (left-branch m2))
+(print (weight (left-branch m2)))
+(print (weight (right-branch m2)))
+(print (total-weight m2))
+
+(define (torque branch)
+  (* (weight branch) (branch-length branch)))
+
+(define (partial-balanced? mobile)
+  (= (torque (left-branch mobile)
+     (torque (right-branch mobile)))))
+
+(define (balanced? mobile)
+  #t)
+
+;(print (balanced? mm))
