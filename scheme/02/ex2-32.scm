@@ -1,4 +1,4 @@
-;ex2-31
+;ex2-32
 (use slib)
 (require 'trace)
 (include "util")
