@@ -6,10 +6,10 @@
 (define (accumulate op init seq)
   (if (null? seq)
       init
-      (op (car seq)
-          (accumulate op init (cdr seq)))))
+      (op (accumulate op init (cdr seq))
+          (car seq))))
 
-(print (accumulate + 0 (list 1 2 3 4)))
+(print (accumulate - 0 (list 1 2 3 4)))
 
 (define (my-map p seq)
         (accumulate (lambda (x y)
@@ -17,3 +17,11 @@
                             nil seq))
 
 (print (my-map (lambda (x) (* 3 x)) (list 1 2)))
+
+(define (my-length seq)
+        (accumulate (lambda (x y)
+                            (+ x 1))
+                    0
+                    seq))
+
+(print (my-length (list 1 2 3 4)))
