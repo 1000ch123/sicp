@@ -5,10 +5,10 @@
 
 
 (define (pick-heads seqs)
-  (accumulate (lambda (x y) (cons (car x) y)) (list) seqs))
+  (map (lambda (x) (car x)) seqs))
 
 (define (pick-tails seqs)
-  (accumulate (lambda (x y) (cons (cdr x) y)) (list) seqs))
+  (map (lambda (x) (cdr x)) seqs))
 
 (define (accumulate-n op init seqs)
   (if (null? (car seqs))
